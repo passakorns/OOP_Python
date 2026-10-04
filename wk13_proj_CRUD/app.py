@@ -17,24 +17,7 @@ def index():
 
     return render_template("index.html")
 
-@myapp.route('/login', methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        sql = "SELECT * FROM members WHERE name = ?"
-        name = form.username.data.strip().lower()
-        password = form.password.data
-        with get_db(DB_Name) as db:
-            member = db.execute(sql, (name,)).fetchone()
-            
-        if member and member["password"] == password:
-            session.clear()
-            session["member_id"] = member["id"]
-            session["member_name"] = member["name"]
-            return redirect(url_for("members"))
 
-        flash("ชื่อหรือรหัสผ่านไม่ถูกต้อง")
-    return render_template('login.html', form=form)
 
 @myapp.route('/members')
 def members():
