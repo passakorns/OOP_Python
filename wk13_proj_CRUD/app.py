@@ -1,5 +1,5 @@
-from mydb import *
-from myfield import *
+from connectdb import *
+from myFormField import *
 from flask import Flask, render_template, session, redirect, url_for, request
 from flask_wtf.csrf import CSRFProtect
 
