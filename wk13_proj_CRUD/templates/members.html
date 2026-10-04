@@ -1,0 +1,135 @@
+
+{% extends "parent.html" %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+
+    <div class="card-header text-body-emphasis py-3">
+            <div class="text-center">
+                <h4 class="mb-0">จัดการสมาชิก</h4>
+            </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                    <th>รหัส</th>
+                    <th>ชื่อ</th>
+                    <th>เพศ</th>
+                    <th>ที่อยู่</th>
+                    <th>จังหวัด</th>
+                    <th>ยอมรับเงื่อนไข</th>
+                    <th>รหัสผ่าน</th>
+                    <th colspan="2" class="text-center">จัดการ</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for member in members %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.gender }}</td>
+                        <td>{{ member.address }}</td>
+                        <td>{{ member.province }}</td>
+                        <td>{{ member.isAgree }}</td>
+                        <td>{{ member.password }}</td>
+                        {% if session.get('member_id') == member.id %}
+                        <td class="text-center">           
+                                <a href="{{ url_for(
+                                    'member_edit', 
+                                    member_id=member.id)
+                                 }}">แก้ไข</a>
+                        </td>
+                        <td class="text-center">
+                            <!-- ปุ่มลบ -->
+                            <button type="button" 
+                                class="btn btn-danger btn-sm" 
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal{{member.id}}">
+                                ลบบัญชี
+                            </button>
+                        
+                        </td>
+                        {% else %}
+                        <td class="text-center">-</td>
+                        <td class="text-center">-</td>
+                        {% endif %}
+                    </tr>
+            <!-- Modal ยืนยันการลบ -->
+                    <div class="modal fade"
+                        id="deleteModal{{ member.id }}"
+                        tabindex="-1">
+
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header bg-danger text-white">
+
+                                    <h5 class="modal-title">
+                                        ยืนยันการลบสมาชิก
+                                    </h5>
+
+                                    <button type="button"
+                                            class="btn-close btn-close-white"
+                                            data-bs-dismiss="modal">
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <p>
+                                        คุณต้องการลบสมาชิก
+                                        <strong>{{ member.name }}</strong>
+                                        ใช่หรือไม่?
+                                    </p>
+
+                                    <p class="text-danger">
+                                        การลบข้อมูลไม่สามารถย้อนกลับได้
+                                    </p>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                    <!-- ยกเลิก -->
+                                    <button type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal">
+                                        ยกเลิก
+                                    </button>
+
+                                    <!-- ยืนยันการลบ -->
+                                    <form method="POST"
+                                        action="{{ url_for('member_delete', member_id=member.id) }}"
+                                        style="display:inline;">
+
+                                        <input type="hidden"
+                                            name="csrf_token"
+                                            value="{{ csrf_token() }}">
+
+                                        <button type="submit"
+                                                class="btn btn-danger">
+                                            ยืนยันการลบ
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                
+                {% endfor %}
+                 </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

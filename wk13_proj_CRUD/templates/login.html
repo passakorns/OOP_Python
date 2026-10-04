@@ -1,0 +1,37 @@
+
+{% extends "parent.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6 col-lg-5">
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4 ">
+
+                <h2 class="text-center mb-4 card-header bg-primary text-white">
+                    เข้าสู่ระบบสมาชิก
+                </h2>
+
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    <p class="mb-3">
+                        {{ form.username.label(class="form-label") }}<br>
+                        {{ form.username(class="form-control",
+                                            placeholder="ชื่อผู้ใช้ระบบ") }}
+                    </p>
+
+                    <p class="mb-3">
+                        {{ form.password.label(class="form-label") }}<br>
+                        {{ form.password(class="form-control", placeholder="รหัสผ่าน") }}
+
+                    </p>
+                    <p class="mb-3 text-center">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </p> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

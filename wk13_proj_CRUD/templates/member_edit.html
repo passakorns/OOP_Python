@@ -1,0 +1,55 @@
+
+{% extends "parent.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0 text-center">แก้ไขข้อมูลสมาชิก</h4>
+            </div>
+
+            <div class="card-body p-4">
+
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    <p>
+                        {{ form.username.label(class="form-label") }}<br>
+                        {{ form.username(class="form-control") }}
+
+                    </p>
+
+                    <p>
+                        {{ form.isAgree() }}
+                        {{ form.isAgree.label(class="form-label") }}
+                    </p>
+
+                    <p>
+                        {{ form.gender.label(class="form-label") }}<br>
+                        {{ form.gender() }}
+                    </p>
+                    <p>
+                        {{ form.province.label(class="form-label") }}<br>
+                        {{ form.province() }}
+                    </p>
+                    <p>
+                        {{ form.address.label(class="form-label") }}<br>
+                        {{ form.address(class="form-control") }}
+                    </p> 
+                    <p class="d-flex gap-2">
+                        {{ form.submit(class="btn btn-success") }}
+                         <a href="{{ url_for('members') }}"
+                           class="btn btn-secondary">
+                            ยกเลิก
+                        </a>
+                    </p>
+                    
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+
+{% extends "parent.html" %}
+
+{% block title %} สมัครสมาชิก {% endblock%}
+{% block content %}
+ <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4"> 
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="text-center mb-2">ลงทะเบียนสมาชิก</h2>
+                    </div>
+                    <p></p>
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+                    {{ form.username.label(class="form-label") }}<br>
+                    
+                    {{ form.username(
+                                class="form-control",
+                                placeholder="ชื่อผู้ใช้เข้าระบบ"
+                            ) }}
+                    </div>
+
+                    <p class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(
+                                class="form-control",
+                                placeholder="อย่างน้อย 8 ตัวอักษร"
+                            ) }}
+                    </p>
+
+                    <p>{{ form.isAgree() }}
+                    {{ form.isAgree.label(class="form-label") }}
+                    </p>
+
+                    <p>{{ form.gender.label(class="form-label")  }}<br>
+                    {{ form.gender() }}
+                    </p>
+                    <p>{{ form.province.label(class="form-label")  }}<br>
+                    {{ form.province() }}
+                    </p>
+                    <p>{{ form.address.label(class="form-label")  }}<br>
+                    {{ form.address(class="form-control") }}
+                    </p>
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                    </div>
+                    
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
